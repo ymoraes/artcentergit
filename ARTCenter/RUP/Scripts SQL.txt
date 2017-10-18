@@ -1,1 +1,117 @@
-s
+-- Table: public.cliente
+
+-- DROP TABLE public.cliente;
+
+CREATE TABLE public.cliente
+(
+    id integer NOT NULL DEFAULT nextval('cliente_id_seq'::regclass),
+    nome character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT cliente_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.cliente
+    OWNER to postgres;
+
+
+-- Table: public.equipamento
+
+-- DROP TABLE public.equipamento;
+
+CREATE TABLE public.equipamento
+(
+    id integer NOT NULL DEFAULT nextval('equipamento_id_seq'::regclass),
+    part character varying COLLATE pg_catalog."default",
+    descricao character varying COLLATE pg_catalog."default",
+    tipo character varying COLLATE pg_catalog."default",
+    serie character varying COLLATE pg_catalog."default",
+    CONSTRAINT equipamento_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.equipamento
+    OWNER to postgres;
+
+-- Table: public.material
+
+-- DROP TABLE public.material;
+
+CREATE TABLE public.material
+(
+    id integer NOT NULL DEFAULT nextval('peca_id_seq'::regclass),
+    nome character varying(30) COLLATE pg_catalog."default" NOT NULL,
+    material character varying(30) COLLATE pg_catalog."default",
+    modelo character varying(30) COLLATE pg_catalog."default",
+    CONSTRAINT peca_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.material
+    OWNER to postgres;
+
+-- Table: public.ordemservico
+
+-- DROP TABLE public.ordemservico;
+
+CREATE TABLE public.ordemservico
+(
+    id integer NOT NULL DEFAULT nextval('"ordemServico_id_seq"'::regclass),
+    data character varying COLLATE pg_catalog."default",
+    projeto character varying COLLATE pg_catalog."default",
+    tecnico character varying COLLATE pg_catalog."default",
+    comentario character varying(400) COLLATE pg_catalog."default",
+    cliente integer,
+    equipamento integer,
+    CONSTRAINT "ordemServico_pkey" PRIMARY KEY (id),
+    CONSTRAINT fk_cliente FOREIGN KEY (cliente)
+        REFERENCES public.cliente (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_equipamento FOREIGN KEY (equipamento)
+        REFERENCES public.equipamento (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.ordemservico
+    OWNER to postgres;
+
+-- Table: public.ordemservico_material
+
+-- DROP TABLE public.ordemservico_material;
+
+CREATE TABLE public.ordemservico_material
+(
+    os integer,
+    material integer,
+    quantidade double precision,
+    unidade character varying COLLATE pg_catalog."default",
+    CONSTRAINT fk_material FOREIGN KEY (material)
+        REFERENCES public.material (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_os FOREIGN KEY (os)
+        REFERENCES public.ordemservico (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.ordemservico_material
+    OWNER to postgres;
