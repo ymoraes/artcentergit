@@ -10,6 +10,7 @@ import br.rj.macae.femass.artcenter.dao.MaterialDAO;
 import br.rj.macae.femass.artcenter.modelo.Material;
 import java.sql.SQLException;
 import java.util.List;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -37,8 +38,10 @@ public class MaterialControle{
             MaterialDAO dao = new MaterialDAO();    
             dao.excluir(c);
         }
-        
     }
+    
+ 
+    
     public void excluir(Long id)throws SQLException{
         if(JOptionPane.showConfirmDialog(null, "Tem certeza de que deseja excluir esta material?")==JOptionPane.YES_OPTION){
             MaterialDAO dao = new MaterialDAO();    

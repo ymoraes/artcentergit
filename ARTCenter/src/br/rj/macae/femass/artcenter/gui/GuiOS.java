@@ -11,6 +11,7 @@ import br.rj.macae.femass.artcenter.modelo.Cliente;
 import br.rj.macae.femass.artcenter.modelo.Equipamento;
 import br.rj.macae.femass.artcenter.modelo.Material;
 import br.rj.macae.femass.artcenter.modelo.OrdemServico;
+import br.rj.macae.femass.artcenter.modelo.OrdemServico_Material;
 import static java.lang.System.exit;
 import java.sql.SQLException;
 import java.util.List;
@@ -73,6 +74,13 @@ public class GuiOS extends javax.swing.JInternalFrame {
         btnAdd = new javax.swing.JButton();
         btnRmv = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        lbData4 = new javax.swing.JLabel();
+        cboMaterial = new javax.swing.JComboBox();
+        jSeparator1 = new javax.swing.JSeparator();
+        lbData5 = new javax.swing.JLabel();
+        txtQtd = new javax.swing.JTextField();
+        txtUn = new javax.swing.JTextField();
+        lbData6 = new javax.swing.JLabel();
 
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
@@ -191,8 +199,18 @@ public class GuiOS extends javax.swing.JInternalFrame {
         lbComentario1.setText("Materiais:");
 
         btnAdd.setText("+");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         btnRmv.setText("-");
+        btnRmv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRmvActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -201,12 +219,18 @@ public class GuiOS extends javax.swing.JInternalFrame {
             }
         });
 
+        lbData4.setText("Material:");
+
+        lbData5.setText("Qtd:");
+
+        lbData6.setText("Un:");
+
         javax.swing.GroupLayout pNovoLayout = new javax.swing.GroupLayout(pNovo);
         pNovo.setLayout(pNovoLayout);
         pNovoLayout.setHorizontalGroup(
             pNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pNovoLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addContainerGap()
                 .addGroup(pNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pNovoLayout.createSequentialGroup()
                         .addComponent(lbComentario)
@@ -217,35 +241,48 @@ public class GuiOS extends javax.swing.JInternalFrame {
                         .addGap(6, 6, 6)
                         .addComponent(btnCancelar))
                     .addGroup(pNovoLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addGroup(pNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbData)
-                            .addComponent(lbProjeto)
-                            .addComponent(lbData2))
-                        .addGap(41, 41, 41)
-                        .addGroup(pNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pNovoLayout.createSequentialGroup()
-                                .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lbTecnico)
-                                .addGap(4, 4, 4)
-                                .addComponent(txtTecnico, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(pNovoLayout.createSequentialGroup()
-                        .addGroup(pNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbData3)
-                            .addComponent(lbComentario1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(pNovoLayout.createSequentialGroup()
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 714, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(pNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnRmv, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(pNovoLayout.createSequentialGroup()
-                                .addComponent(cboEquipamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(448, 448, 448))))))
+                                    .addComponent(lbData)
+                                    .addComponent(lbProjeto)
+                                    .addComponent(lbData2)
+                                    .addComponent(lbData4)
+                                    .addComponent(lbComentario1))
+                                .addGap(31, 31, 31)
+                                .addGroup(pNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 714, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(pNovoLayout.createSequentialGroup()
+                                        .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(lbTecnico)
+                                        .addGap(4, 4, 4)
+                                        .addComponent(txtTecnico, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(pNovoLayout.createSequentialGroup()
+                                        .addGroup(pNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(cboMaterial, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(cboCliente, javax.swing.GroupLayout.Alignment.LEADING, 0, 160, Short.MAX_VALUE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(pNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lbData3)
+                                            .addGroup(pNovoLayout.createSequentialGroup()
+                                                .addComponent(lbData5)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(lbData6)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtUn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(btnRmv, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                            .addGroup(pNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(cboEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(0, 10, Short.MAX_VALUE))
         );
         pNovoLayout.setVerticalGroup(
             pNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,20 +303,27 @@ public class GuiOS extends javax.swing.JInternalFrame {
                 .addGap(11, 11, 11)
                 .addGroup(pNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbData2)
-                    .addComponent(cboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
-                .addGroup(pNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbData3)
                     .addComponent(cboEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(pNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbData4)
+                    .addComponent(lbData5)
+                    .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbData6)
+                        .addComponent(txtUn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAdd)
+                        .addComponent(btnRmv)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbComentario1)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pNovoLayout.createSequentialGroup()
-                        .addComponent(btnAdd)
-                        .addGap(11, 11, 11)
-                        .addComponent(btnRmv)))
-                .addGap(11, 11, 11)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addGroup(pNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pNovoLayout.createSequentialGroup()
                         .addGap(33, 33, 33)
@@ -300,19 +344,17 @@ public class GuiOS extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(pNovo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnVoltar))
                     .addComponent(btnAtualizar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnNovo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnAlterar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnExcluir))
-                            .addComponent(pNovo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(btnNovo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAlterar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnExcluir)
+                        .addGap(0, 947, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -326,11 +368,15 @@ public class GuiOS extends javax.swing.JInternalFrame {
                     .addComponent(btnNovo)
                     .addComponent(btnAlterar)
                     .addComponent(btnExcluir))
-                .addGap(18, 18, 18)
-                .addComponent(pNovo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnVoltar)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnVoltar)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(pNovo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(14, Short.MAX_VALUE))))
         );
 
         pack();
@@ -394,6 +440,11 @@ public class GuiOS extends javax.swing.JInternalFrame {
             c.setComentario(txtComentario.getText());
             c.setCliente((Cliente) cboCliente.getSelectedItem());
             c.setEquipamento((Equipamento) cboEquipamento.getSelectedItem());
+            
+            for(int i=0; i<lstMateriais.getModel().getSize();i++){            
+            c.setMaterial((OrdemServico_Material) lstMateriais.getModel().getElementAt(i));
+            }
+            
             if (tblOS.getSelectedRow() >= 0) {
                 c.setId((Integer) tblOS.getValueAt(tblOS.getSelectedRow(), 0));
             }
@@ -434,6 +485,31 @@ public class GuiOS extends javax.swing.JInternalFrame {
         desabilitarCampos();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        OrdemServico_Material ri = new OrdemServico_Material();
+        ri.setMaterial((Material)cboMaterial.getSelectedItem());        
+        ri.setOs(null);
+        ri.setQuantidade(Integer.parseInt(txtQtd.getText()));
+        ri.setUnidade(txtUn.getText());
+        DefaultListModel model = (DefaultListModel) lstMateriais.getModel();
+        model.addElement(ri);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnRmvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRmvActionPerformed
+        
+        if(lstMateriais.isSelectionEmpty()){
+        JOptionPane.showMessageDialog(this, "Selecione um material da lista para excluir");
+        return;
+        }
+        OrdemServico_Material ri = new OrdemServico_Material();
+        
+        DefaultListModel model = (DefaultListModel) lstMateriais.getModel();
+        model.removeElementAt(lstMateriais.getSelectedIndex());
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRmvActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -447,14 +523,19 @@ public class GuiOS extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox cboCliente;
     private javax.swing.JComboBox cboEquipamento;
+    private javax.swing.JComboBox cboMaterial;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbComentario;
     private javax.swing.JLabel lbComentario1;
     private javax.swing.JLabel lbData;
     private javax.swing.JLabel lbData2;
     private javax.swing.JLabel lbData3;
+    private javax.swing.JLabel lbData4;
+    private javax.swing.JLabel lbData5;
+    private javax.swing.JLabel lbData6;
     private javax.swing.JLabel lbProjeto;
     private javax.swing.JLabel lbTecnico;
     private javax.swing.JList lstMateriais;
@@ -463,19 +544,26 @@ public class GuiOS extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea txtComentario;
     private javax.swing.JTextField txtData;
     private javax.swing.JTextField txtProjeto;
+    private javax.swing.JTextField txtQtd;
     private javax.swing.JTextField txtTecnico;
+    private javax.swing.JTextField txtUn;
     // End of variables declaration//GEN-END:variables
 
     private void limparCampos() {
         txtData.setText("");
         txtProjeto.setText("");
         txtTecnico.setText("");
+        txtQtd.setText("");
+        txtUn.setText("");
         tblOS.clearSelection();
+        lstMateriais.clearSelection();
         try {
             atualizarComboCliente();
             cboCliente.setSelectedIndex(-1);
             atualizarComboEquipamento();
             cboEquipamento.setSelectedIndex(-1);
+            atualizarComboMaterial();
+            cboMaterial.setSelectedIndex(-1);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
@@ -523,6 +611,22 @@ public class GuiOS extends javax.swing.JInternalFrame {
         for(Object o:equipamentos){
             cboEquipamento.addItem(o);
         }
+    }
+        
+        private void atualizarComboMaterial() {
+        OrdemServicoControle controle = new OrdemServicoControle();
+        List materiais;
+        try {
+            materiais = controle.listarMateriais();
+            cboMaterial.removeAllItems();
+             for(Object o:materiais){
+                cboMaterial.addItem(o);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+        
+       
     }
 
 

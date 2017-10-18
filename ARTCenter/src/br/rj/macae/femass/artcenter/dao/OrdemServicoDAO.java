@@ -42,6 +42,7 @@ public class OrdemServicoDAO implements IDAO{
             stmt.setString(4, ordemservico.getComentario());
             stmt.setInt(5, ordemservico.getCliente().getId());
             stmt.setInt(6, ordemservico.getEquipamento().getId());
+            
 
             stmt.executeUpdate();
             stmt.close();

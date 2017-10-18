@@ -5,8 +5,12 @@
  */
 package br.rj.macae.femass.artcenter.modelo;
 
+import br.rj.macae.femass.artcenter.dao.MaterialDAO;
+import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
+import javax.swing.JList;
 
 /**
  *
@@ -80,8 +84,9 @@ public class OrdemServico_Material {
 
     @Override
     public String toString() {
-        return "quantidade=" + quantidade + ", unidade=" + unidade ;
+        return material+" | "+quantidade+" "+unidade.toUpperCase() ;
     }
-
+    
+    
      
 }
