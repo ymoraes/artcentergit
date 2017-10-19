@@ -243,7 +243,11 @@
                                           </Group>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="lbData3" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="lbData3" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Component id="cboEquipamento" min="-2" pref="460" max="-2" attributes="0"/>
+                                              </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="lbData5" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -261,10 +265,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Component id="cboEquipamento" alignment="1" min="-2" pref="460" max="-2" attributes="0"/>
-                                  <Component id="jSeparator1" min="-2" pref="792" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jSeparator1" alignment="0" min="-2" pref="792" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>

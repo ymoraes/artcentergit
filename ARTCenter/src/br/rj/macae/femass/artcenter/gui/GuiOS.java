@@ -266,7 +266,10 @@ public class GuiOS extends javax.swing.JInternalFrame {
                                             .addComponent(cboCliente, javax.swing.GroupLayout.Alignment.LEADING, 0, 160, Short.MAX_VALUE))
                                         .addGap(18, 18, 18)
                                         .addGroup(pNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lbData3)
+                                            .addGroup(pNovoLayout.createSequentialGroup()
+                                                .addComponent(lbData3)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(cboEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(pNovoLayout.createSequentialGroup()
                                                 .addComponent(lbData5)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -279,9 +282,7 @@ public class GuiOS extends javax.swing.JInternalFrame {
                                                 .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(btnRmv, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                            .addGroup(pNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(cboEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 10, Short.MAX_VALUE))
         );
         pNovoLayout.setVerticalGroup(
@@ -392,7 +393,7 @@ public class GuiOS extends javax.swing.JInternalFrame {
             OrdemServicoControle controle = new OrdemServicoControle();
             Object valor = ((DefaultTableModel) tblOS.getModel()).getValueAt(tblOS.getSelectedRow(), 0);
             try {
-            
+            limparCampos();
             OrdemServico c = controle.getOrdemServicoPorId((Integer) valor);
             txtData.setText(c.getData());
             txtProjeto.setText(c.getProjeto());
